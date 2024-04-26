@@ -7,24 +7,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/runs")
 public class RunController {
 
     private final RunRepo runRepo;
-
     public RunController(RunRepo runRepo) {
         this.runRepo = runRepo;
     }
-
     @GetMapping()
     List<Run> findAll() {
         return runRepo.findAll();
     }
 
     @GetMapping("/{id}")
-    Run findById(@PathVariable int id) { //@PathVariable int id - pass url id as parameter
+    Optional<Run> findById(@PathVariable int id) { //@PathVariable int id - pass url id as parameter
         return runRepo.findById(id);
     }
 
@@ -43,6 +42,5 @@ public class RunController {
     @DeleteMapping("/delete/{id}")
     void deleteRun(@PathVariable int id) {
         runRepo.deleteRun(id);
-
     }
 }
